@@ -34,6 +34,12 @@ def your_function():
     # Your code here
     pass
 
+# using re_raise to propagate the exception after logging
+@logger.log_exception_decorator(re_raise=True)
+def your_function():
+    # Your code here
+    pass
+
 @logger.log_exception_decorator()
 async def your_async_function():
     # Your code here
