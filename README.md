@@ -28,6 +28,16 @@ try:
     pass
 except Exception:
     logger.log_exception("Something went wrong!")
+# Or use as a decorator in both synchronous and asynchronous functions
+@logger.log_exception_decorator()
+def your_function():
+    # Your code here
+    pass
+
+@logger.log_exception_decorator()
+async def your_async_function():
+    # Your code here
+    pass
 ```
 
 ## Requirements
