@@ -2,6 +2,7 @@ import inspect
 import os
 from functools import wraps
 from pathlib import Path
+from typing import Callable
 from uuid import uuid4
 
 from loguru import logger
@@ -45,9 +46,15 @@ class MyLogger:
             print(msg)
         logger.remove(sink)
 
-    def log_exception_decorator(self):
+    def log_exception_decorator(self, re_raise: bool = False) -> Callable:
         """
         Decorator that logs any exception raised by the wrapped function.
+
+        Args:
+            re_raise (bool): If True, re-raises the exception after logging it.
+
+        Returns:
+            Callable: The decorated function with exception logging.
         """
 
         def make_decorator(func):
@@ -57,8 +64,10 @@ class MyLogger:
                 async def async_wrapper(*args, **kwargs):
                     try:
                         return await func(*args, **kwargs)
-                    except Exception:
+                    except Exception as e:
                         self.log_exception()
+                        if re_raise:
+                            raise e
 
                 return async_wrapper
             else:
@@ -67,8 +76,10 @@ class MyLogger:
                 def sync_wrapper(*args, **kwargs):
                     try:
                         return func(*args, **kwargs)
-                    except Exception:
+                    except Exception as e:
                         self.log_exception()
+                        if re_raise:
+                            raise e
 
                 return sync_wrapper
 
