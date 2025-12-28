@@ -15,12 +15,6 @@ class OptPrint(StrEnum):
     FILE_NAME = "file_name"
 
 
-def pytest_running() -> bool:
-    if "PYTEST_CURRENT_TEST" in os.environ:
-        return True
-    return False
-
-
 class MyLogger:
     def __init__(
         self,
@@ -52,8 +46,11 @@ class MyLogger:
         self.folder_log_path = folder_log_path
         self.std_msg = std_msg
         self.opt_print = opt_print
-        self.pytest_running = pytest_running()
-        self.folder_log_path.mkdir(exist_ok=True)
+
+    def _pytest_running(self) -> bool:
+        if "PYTEST_CURRENT_TEST" in os.environ:
+            return True
+        return False
 
     def log_exception(self, one_time_message: str = None, header_exc: str = "") -> None:
         """Logs ONE exception per file in the logs subfolder of the specified
@@ -68,8 +65,9 @@ class MyLogger:
             header_exc (str, optional): Header to be added before the exception log.
                 Defaults to "".
         """
-        if self.pytest_running:
+        if self._pytest_running():
             return
+        self.folder_log_path.mkdir(parents=True, exist_ok=True)
         error_code = uuid4()
         full_path = self.folder_log_path / f"{error_code}.log"
         rel_path = full_path.relative_to(self.folder_log_path.parent)

@@ -6,6 +6,14 @@ import pytest
 
 from src.my_logger import MyLogger, OptPrint
 
+mock_my_logger = MyLogger(Path(".") / "logs")
+assert mock_my_logger._pytest_running() is False, (
+    "Expected _pytest_running to return "
+    "False when it's called outside pytest. This is to avoid the idea of setting a var"
+    " at init, because it will return False if the logger is instantiated outside "
+    "pytest but used inside pytest."
+)
+
 
 class TestLogException:
     def test_pytest_running(self, tmp_path: Path):
@@ -17,7 +25,7 @@ class TestLogException:
         except Exception:
             my_logger.log_exception()
 
-        assert (log_folder / "logs").exists()
+        assert (log_folder / "logs").exists() is False
 
     def test_creates_log_file_file_name(self, tmp_path: Path, capsys):
         log_folder = tmp_path
