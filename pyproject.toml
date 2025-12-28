@@ -1,0 +1,50 @@
+[build-system]
+requires = ["poetry-core>=2.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[project]
+name = "my_logger"
+description = "A custom logger implementation using loguru."
+license = "LICENSE"
+readme = "README.md"
+keywords = ["logging", "loguru", "custom logger"]
+authors = [
+    { name = "Fernando Casale Neto", email = "fcasalen@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+requires-python = ">=3.11, <4.0"
+dynamic = ["version", "dependencies"]
+
+[tool.poetry]
+packages = [{include = "my_logger", from = "src"}]
+version = "0.0.0"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+format = "{base}"
+
+[tool.poetry.dependencies]
+loguru = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+detect = "*"
+pytest-cov = "*"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.ruff.lint]
+select = ["I", "F", "E", "W", "C", "N"]
+
+[tool.ruff.format]
+docstring-code-format = true

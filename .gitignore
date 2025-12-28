@@ -1,0 +1,13 @@
+*.pyc
+*.egg-info
+__pycache__/
+benchmarking_results/
+html_cache/
+.tox
+build/
+dist/
+.pytest_cache/
+venv/
+.vscode/
+.coverage
+htmlcov/
