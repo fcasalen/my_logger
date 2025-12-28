@@ -32,5 +32,5 @@ except Exception:
 
 ## Requirements
 
-- Python >= 3.11
-- loguru
+- Python >= 3.11, <4.0
+- loguru >= 0.7.3, <1.0.0

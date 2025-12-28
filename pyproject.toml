@@ -30,12 +30,12 @@ vcs = "git"
 format = "{base}"
 
 [tool.poetry.dependencies]
-loguru = "*"
+loguru = "^0.7.3"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "*"
-detect = "*"
-pytest-cov = "*"
+pytest = "^9.0.2"
+detect = "^2020.12.3"
+pytest-cov = "^7.0.0"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
