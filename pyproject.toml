@@ -20,6 +20,9 @@ classifiers = [
 requires-python = ">=3.11, <4.0"
 dynamic = ["version", "dependencies"]
 
+[project.scripts]
+my-logger = "my_logger.cli:main"
+
 [tool.poetry]
 packages = [{include = "my_logger", from = "src"}]
 version = "0.0.0"

@@ -1,3 +1,3 @@
-from .logger import MyLogger, OptPrint
+from .logger import MyLogger
 
-__all__ = ["MyLogger", "OptPrint"]
+__all__ = ["MyLogger"]
