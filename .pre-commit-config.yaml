@@ -18,7 +18,7 @@ repos:
       - id: ruff-format
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-      
+
   # 🔹 Codespell → spell checking (fast)
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
